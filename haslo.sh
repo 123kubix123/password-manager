@@ -10,6 +10,10 @@ function deleteUser {
 :
 }
 
+function deleteEntry {
+    echo OK;
+}
+
 function verifyPassword {
     echo OK;
 }
@@ -91,11 +95,12 @@ elif [[ $1 == "-v" ]];then
     exit
 fi
 case $2 in
-  "se") if [ "$#" -eq 3 ];then showEntries $1 $3;fi        ;;  #secret category
-  "sc") if [ "$#" -eq 2 ];then showCategories $1;fi        ;;  #secret
-  "cp") if [ "$#" -eq 5 ];then changePass $1 $3 $4 $5;fi            ;;  #secret uuid user new_pw
-  "du") if [ "$#" -eq 4 ];then deleteUser $1 $3 $4;fi               ;;  #secret uuid user
-  "ae") if [ "$#" -eq 8 ];then addEntry   $1 $3 $4 $5 $6 $7 $8;fi   ;;  #secret category uuid name ip port secret
-  "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
+    "se") if [ "$#" -eq 3 ];then showEntries $1 $3;fi        ;;  #secret category
+    "sc") if [ "$#" -eq 2 ];then showCategories $1;fi        ;;  #secret
+    "cp") if [ "$#" -eq 5 ];then changePass $1 $3 $4 $5;fi            ;;  #secret uuid user new_pw
+    "du") if [ "$#" -eq 4 ];then deleteUser $1 $3 $4;fi               ;;  #secret uuid user
+    "ae") if [ "$#" -eq 8 ];then addEntry   $1 $3 $4 $5 $6 $7 $8;fi   ;;  #secret category uuid name ip port secret
+    "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
+    "de") if [ "$#" -eq 2 ];then deleteEntry $1 $3;fi                 ;;  #secret UUID
   *) usage
 esac
