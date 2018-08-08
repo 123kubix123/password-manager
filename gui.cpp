@@ -233,7 +233,16 @@ void gui::on_entry_delete_clicked()
     // use script to delete entry
     if(ui->entries->currentItem() != NULL)
     {
-
+        QString result = execute_command("../../haslo.sh novell de "+ui->entries->currentItem()->data(3).toString());
+        if(result == "OK")
+        {
+           QMessageBox::information(this, "Usunięto", "Usunięto wpis.");
+        }
+        else
+        {
+            QMessageBox::warning(this, "Error", "Coś poszło nie tak!!!\n"+result);
+        }
+        load_categories();
     }
     else
     {

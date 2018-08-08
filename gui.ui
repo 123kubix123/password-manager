@@ -27,23 +27,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="categories">
-          <item>
-           <property name="text">
-            <string>linux</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>BIEDAN</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>PFSense</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="categories"/>
         </item>
         <item>
          <widget class="QLabel" name="desc_entries">
@@ -125,7 +109,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>557</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlik">
