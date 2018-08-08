@@ -38,7 +38,7 @@ void gui::decrypt()
 void gui::password_check(QString pw)
 {
     // use script to verify pw
-    QString result = execute_command("./haslo.sh novell vp");
+    QString result = execute_command("../../haslo.sh novell vp");
     if(result == "OK")
     {
         this->setEnabled(true); // activate ui
@@ -72,7 +72,7 @@ void gui::load_categories()
     bool loaded = false;
     ui->categories->clear();
     // use script to load categories
-    QString categories = execute_command("./haslo.sh novell sc ");
+    QString categories = execute_command("../../haslo.sh novell sc ");
     QStringList categories_splitted = categories.split("\n");
     categories_splitted.removeDuplicates();
     for(int i =0; i < categories_splitted.count(); i++)
@@ -101,7 +101,7 @@ void gui::load_entries(QString category)
 {
     ui->entries->clear();
     // use script to load entries
-    QString entries = execute_command("./haslo.sh novell se "+category);
+    QString entries = execute_command("../../haslo.sh novell se "+category);
     QList<QString> entries_splitted = entries.split("\n");
     for(int i =0; i < entries_splitted.count(); i++)
     {
@@ -160,7 +160,6 @@ void gui::shutdown()
 void gui::on_actionWyloguj_triggered()
 {
     close_requested = true;
-    // bash logout nie wiem jak XD
     QProcess poweroff;
     //poweroff.startDetached("/bin/bash", QStringList()<< "-c" << "kill -9 -1;\n");
     emit closing();
@@ -172,7 +171,7 @@ void gui::on_show_pw_clicked()
     // use script to decrypt pw
     if(ui->entries->currentItem() != NULL)
     {
-        QString entries = execute_command("./haslo.sh novell se "+ui->categories->currentText());
+        QString entries = execute_command("../../haslo.sh novell se "+ui->categories->currentText());
         QList<QString> entries_splitted = entries.split("\n");
         for(int i =0; i < entries_splitted.count(); i++)
         {
@@ -210,7 +209,7 @@ void gui::on_change_pw_clicked()
                                                  "Password", &pw_ok);
             if (pw_ok && !new_pw.isEmpty())
             {
-                QString result = execute_command("./haslo.sh novell cp "+ui->entries->currentItem()->data(3).toString()+" "+username+" "+new_pw);
+                QString result = execute_command("../../haslo.sh novell cp "+ui->entries->currentItem()->data(3).toString()+" "+username+" "+new_pw);
                 update_log(result);
             }
             else

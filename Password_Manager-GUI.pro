@@ -38,3 +38,6 @@ FORMS += \
         gui.ui \
     pw_check.ui \
     category_add.ui
+
+RESOURCES += \
+    resources.qrc
