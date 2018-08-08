@@ -1,8 +1,9 @@
 #!/bin/bash
-version="0.1.2"
+version="0.1.3"
+dbFile=`dirname "$0"`/pass
 
 function addEntry {
-    echo "$2<trelemorele>$3<trelemorele>$4<trelemorele>$5<trelemorele>$6<trelemorele>$7" >> pass
+    echo "$2<trelemorele>$3<trelemorele>$4<trelemorele>$5<trelemorele>$6<trelemorele>$7" >> $dbFile
 }
 
 function deleteUser {
@@ -13,21 +14,20 @@ function verifyPassword {
     echo OK;
 }
 function showCategories {
-ARRAY=()
-readarray hasela < pass #loads password file to array
-    for i in "${hasela[@]}";do
-        sep='<trelemorele>' #set a delimiter
-        readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
-        ARRAY+=("${maszyna[0]}");
-        
-    done
-    echo "${ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' '\n' | awk 'NF'
+    ARRAY=()
+    readarray hasela < $dbFile #loads password file to array
+        for i in "${hasela[@]}";do
+            sep='<trelemorele>' #set a delimiter
+            readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
+            ARRAY+=("${maszyna[0]}");
+
+        done
+        echo "${ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' '\n' | awk 'NF'
 }
 
 
 function changePass {
-
-    readarray hasela < pass #loads password file to array
+    readarray hasela < $dbFile #loads password file to array
     for i in "${hasela[@]}";do
         sep='<trelemorele>' #set a delimiter
         readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
@@ -59,7 +59,7 @@ function changePass {
 }
 
 function showEntries {
-    readarray hasela < pass #loads password file to array
+    readarray hasela < $dbFile #loads password file to array
     
     for i in "${hasela[@]}";do
     #echo $i
@@ -78,6 +78,9 @@ echo './pass.sh <passdb_secret> <se|cp|du|ae> <arguments>'
 echo './pass.sh novell se linux : prints entries with category linux'
 echo './pass.sh novell cp UEFE-FED2 adam secret : changes adam password to secret on machine with UUID UEFE-FED2'
 echo './pass.sh novell ae linux UEFE-FED2 www-srv 192.168.0.4 2222 secret : adds entry for machine www-srv with UUID UEFE-FED2, IP ADDR 192.168.0.4, port 2222, password secret'
+echo './pass.sh novell sc : prints categories'
+echo './pass.sh novell du UUFF-DDSD adam : deletes user adam from machine with UUID UUFF-DDSD'
+echo './pass.sh novell vp : verifies password for database'
 }
 
 if [[ $1 == "-h" || $1 == "--help" ]];then
@@ -96,13 +99,3 @@ case $2 in
   "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
   *) usage
 esac
-
-#####
-##USAGE
-#####
-#./pass.sh <passdb_secret> <action> <arguments>
-#./pass.sh novell se linux : prints entries with category linux
-#./pass.sh novell cp UEFE-FED2 adam secret : changes adam's password to secret on machine with UUID UEFE-FED2
-#./pass.sh novell ae linux UEFE-FED2 www-srv 192.168.0.4 2222 secret : adds entry for machine www-srv with UUID UEFE-FED2, IP ADDR 192.168.0.4, port 2222, password secret
-#
-#
