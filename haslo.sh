@@ -101,6 +101,6 @@ case $2 in
     "du") if [ "$#" -eq 4 ];then deleteUser $1 $3 $4;fi               ;;  #secret uuid user
     "ae") if [ "$#" -eq 8 ];then addEntry   $1 $3 $4 $5 $6 $7 $8;fi   ;;  #secret category uuid name ip port secret
     "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
-    "de") if [ "$#" -eq 2 ];then deleteEntry $1 $3;fi                 ;;  #secret UUID
+    "de") if [ "$#" -eq 3 ];then deleteEntry $1 $3;fi                 ;;  #secret UUID
   *) usage
 esac
