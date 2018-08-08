@@ -255,7 +255,16 @@ void gui::on_category_delete_clicked()
     // use script to delete category
     if(ui->categories->currentText() != "")
     {
-
+        QString result = execute_command("../../haslo.sh novell dc "+ui->categories->currentText());
+        if(result == "OK")
+        {
+           QMessageBox::information(this, "Usunięto", "Usunięto kategorię.");
+        }
+        else
+        {
+            QMessageBox::warning(this, "Error", "Coś poszło nie tak!!!\n"+result);
+        }
+        load_categories();
     }
     else
     {
