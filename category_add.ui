@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>category_add</class>
+ <widget class="QWidget" name="category_add">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>546</width>
+    <height>394</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="desc_name">
+     <property name="text">
+      <string>Unikalna nazwa:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="name"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="desc_command">
+     <property name="text">
+      <string>Podaj polecenie służące do zmiany hasła dla danej kategorii.
+Możesz używać następujących tagów 
+[{IP_ADDR}] - miejsce gdzie wpisany będzie adres ip hosta
+[{PORT}] - miejsce gdzie wpisany będzie port usługi
+[{USER}] - miejsce gdzie wpisany będzie użytkownik do logowania
+[{PASSWORD}] - miejsce gdzie wpisane będzie hasło używane do logowania
+[{NEW_PASSWORD}] - miejsce gdzie wpisane będzie nowe hasło</string>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="command"/>
+   </item>
+   <item>
+    <widget class="QPushButton" name="save">
+     <property name="text">
+      <string>Zapisz</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

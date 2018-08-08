@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>gui</class>
+ <widget class="QMainWindow" name="gui">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>557</width>
+    <height>495</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>gui</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <layout class="QGridLayout" name="main_layout">
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="left_column">
+        <item>
+         <widget class="QLabel" name="desc_categories">
+          <property name="text">
+           <string>Kategorie:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="categories">
+          <item>
+           <property name="text">
+            <string>linux</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>BIEDAN</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>PFSense</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="desc_entries">
+          <property name="text">
+           <string>Wpisy:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="entries"/>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="log">
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;root@analmasakra# Hasłonator 3000&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;root@analmasakra# Wersja 0.3&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <layout class="QVBoxLayout" name="right_column">
+        <item>
+         <widget class="QPushButton" name="show_pw">
+          <property name="text">
+           <string>Pokaż hasło</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="change_pw">
+          <property name="text">
+           <string>Zmień hasło</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="entry_delete">
+          <property name="text">
+           <string>Usuń Wpis</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="category_delete">
+          <property name="text">
+           <string>Usuń Kategorię</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>557</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuPlik">
+    <property name="title">
+     <string>Plik</string>
+    </property>
+    <addaction name="actionDodaj_komputer"/>
+    <addaction name="actionDodaj_Kategori"/>
+    <addaction name="actionZmie_has_o_g_wne"/>
+    <addaction name="actionWyloguj"/>
+    <addaction name="actionZamknij"/>
+   </widget>
+   <widget class="QMenu" name="menuPomoc">
+    <property name="title">
+     <string>Pomoc</string>
+    </property>
+    <addaction name="actionPomoc"/>
+    <addaction name="actionInformacje"/>
+   </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <addaction name="actionFullscreen"/>
+    <addaction name="actionStandard"/>
+   </widget>
+   <addaction name="menuPlik"/>
+   <addaction name="menuPomoc"/>
+   <addaction name="menuDebug"/>
+  </widget>
+  <action name="actionDodaj_komputer">
+   <property name="text">
+    <string>Dodaj Wpis</string>
+   </property>
+  </action>
+  <action name="actionZmie_has_o_g_wne">
+   <property name="text">
+    <string>Zmień hasło główne</string>
+   </property>
+  </action>
+  <action name="actionPomoc">
+   <property name="text">
+    <string>Pomoc</string>
+   </property>
+  </action>
+  <action name="actionInformacje">
+   <property name="text">
+    <string>Informacje</string>
+   </property>
+  </action>
+  <action name="actionFullscreen">
+   <property name="text">
+    <string>Fullscreen</string>
+   </property>
+  </action>
+  <action name="actionStandard">
+   <property name="text">
+    <string>Windowed</string>
+   </property>
+  </action>
+  <action name="actionDodaj_Kategori">
+   <property name="text">
+    <string>Dodaj Kategorię</string>
+   </property>
+  </action>
+  <action name="actionZamknij">
+   <property name="text">
+    <string>Zamknij</string>
+   </property>
+  </action>
+  <action name="actionWyloguj">
+   <property name="text">
+    <string>Wyloguj</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
