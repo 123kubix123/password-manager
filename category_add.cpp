@@ -21,5 +21,9 @@ void category_add::set_data(QString name, QString command)
 
 void category_add::on_save_clicked()
 {
-    emit category_saved("command");
+    if(!ui->name->text().replace(" ","").isEmpty() && !ui->command->toPlainText().replace(" ","").isEmpty())
+    {
+        emit category_saved(ui->name->text(), ui->command->toPlainText());
+        emit category_saved();
+    }
 }

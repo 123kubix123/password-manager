@@ -17,7 +17,8 @@ public:
     void set_data(QString name, QString command);
 
 signals:
-    void category_saved(QString category);
+    void category_saved(QString name,QString category);
+    void category_saved();
 
 private slots:
     void on_save_clicked();

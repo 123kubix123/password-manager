@@ -272,14 +272,14 @@ void gui::on_category_delete_clicked()
     }
 }
 
-void gui::verify_category(QString category)
+void gui::verify_category(QString name, QString category)
 {
     // use script to verify category
-    bool exists = false;
+    bool exists = true;
     if(exists)
     {
         QMessageBox::warning(this, "Error", "Kategoria już istnieje");
-        on_actionDodaj_Kategori_triggered();
+        show_add_category_window(name,category);
     }
     else
     {
@@ -290,8 +290,15 @@ void gui::verify_category(QString category)
 
 void gui::on_actionDodaj_Kategori_triggered()
 {
+    show_add_category_window("","");
+}
+
+void gui::show_add_category_window(QString name, QString command)
+{
     category_add *new_category = new category_add();
-    connect(new_category, SIGNAL(category_saved(QString)), this, SLOT(verify_category(QString)));
+    new_category->set_data(name,command);
+    connect(new_category, SIGNAL(category_saved(QString,QString)), this, SLOT(verify_category(QString,QString)));
+    connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
     connect(this, SIGNAL(closing()), new_category, SLOT(close()));
     new_category->show();
 }

@@ -65,13 +65,15 @@ private slots:
 
     void on_category_delete_clicked();
 
-    void verify_category(QString category);
+    void verify_category(QString name, QString category);
 
     void on_actionDodaj_Kategori_triggered();
 
     QString execute_command(QString command);
 
     void update_log(QString text);
+
+    void show_add_category_window(QString name, QString command);
 
 private:
     Ui::gui *ui;
