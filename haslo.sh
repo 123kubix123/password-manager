@@ -7,11 +7,31 @@ function addEntry {
 }
 
 function deleteUser {
-:
+    readarray hasela < $dbFile #loads password file to array
+    for i in "${hasela[@]}";do
+        sep='<trelemorele>' #set a delimiter
+        readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
+        category=${maszyna[0]}  #category
+        uuid=${maszyna[1]}      #uuid
+        name=${maszyna[2]}      #name
+        ip=${maszyna[3]}        #ip
+        port=${maszyna[4]}      #port
+        password=${maszyna[5]}  #password
+        if [[ "$uuid" == *$2* ]];then   #match UUID
+            case $category in
+                *"linux"*)
+                    echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
+                    #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
+                    echo "Deleted user $3"
+                    ;;
+                *) : ;; 
+            esac
+        fi
+    done
 }
 
 function deleteEntry {
-    echo OK;
+    sed "/$2/d" $dbFile #no infile yet
 }
 
 function verifyPassword {
