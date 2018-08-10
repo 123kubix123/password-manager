@@ -45,8 +45,11 @@ void pw_check::on_pw_returnPressed()
 
 void pw_check::focus_to_edit()
 {
-   // this->raise();
-    this->setFocus();
-    ui->pw->setFocus();
+    this->raise();
     this->activateWindow();
+    this->setWindowState(Qt::WindowActive);
+    ui->pw->setFocus();
+    //this->setFocus();
+    //QTimer::singleShot(0, ui->pw, SLOT(setFocus()));
+
 }

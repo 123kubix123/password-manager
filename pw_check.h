@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QCloseEvent>
+#include <QTimer>
 
 namespace Ui {
 class pw_check;
