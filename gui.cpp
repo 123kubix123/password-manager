@@ -298,6 +298,7 @@ void gui::show_add_category_window(QString name, QString command)
     category_add *new_category = new category_add();
     new_category->set_data(name,command);
     connect(new_category, SIGNAL(category_saved(QString,QString)), this, SLOT(verify_category(QString,QString)));
+    connect(new_category, SIGNAL(category_saved()), new_category, SLOT(close()));
     connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
     connect(this, SIGNAL(closing()), new_category, SLOT(close()));
     new_category->show();
