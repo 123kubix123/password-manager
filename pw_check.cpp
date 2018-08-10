@@ -45,6 +45,8 @@ void pw_check::on_pw_returnPressed()
 
 void pw_check::focus_to_edit()
 {
+   // this->raise();
     this->setFocus();
     ui->pw->setFocus();
+    this->activateWindow();
 }
