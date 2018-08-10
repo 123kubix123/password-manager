@@ -17,6 +17,7 @@ function deleteEntry {
 function verifyPassword {
     echo OK;
 }
+
 function showCategories {
     ARRAY=()
     readarray hasela < $dbFile #loads password file to array
@@ -24,9 +25,8 @@ function showCategories {
             sep='<trelemorele>' #set a delimiter
             readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
             ARRAY+=("${maszyna[0]}");
-
         done
-        echo "${ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' '\n' | awk 'NF'
+    echo "${ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' '\n' | awk 'NF'
 }
 
 
@@ -42,24 +42,19 @@ function changePass {
         port=${maszyna[4]}      #port
         password=${maszyna[5]}  #password
         if [[ "$uuid" == *$2* ]];then   #match UUID
-            
             case $category in
                 *"linux"*)
-               
-            echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
-            #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
-            echo "Changed pass for user $3"
-                ;;
+                    echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
+                    #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
+                    echo "Changed pass for user $3"
+                    ;;
                 *) : ;; 
             esac
             if [[ "$3" == "root" ]];then
                 echo "Updated root password in database";
-    
             fi
         fi
     done
-    
-    
 }
 
 function showEntries {
