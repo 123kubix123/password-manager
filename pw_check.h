@@ -25,6 +25,9 @@ signals:
 
 private slots:
     void on_ok_clicked();
+    void focus_to_edit();
+
+    void on_pw_returnPressed();
 
 private:
     Ui::pw_check *ui;

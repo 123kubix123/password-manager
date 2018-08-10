@@ -37,3 +37,14 @@ void pw_check::closeEvent(QCloseEvent *event)
     }
 
 }
+
+void pw_check::on_pw_returnPressed()
+{
+    on_ok_clicked();
+}
+
+void pw_check::focus_to_edit()
+{
+    this->setFocus();
+    ui->pw->setFocus();
+}
