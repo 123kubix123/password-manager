@@ -32,6 +32,7 @@ function deleteUser {
 
 function deleteEntry {
     sed "/$2/d" $dbFile #no infile yet
+    echo "Deleted entry for UUID $2";
 }
 
 function verifyPassword {
