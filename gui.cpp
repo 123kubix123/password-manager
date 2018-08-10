@@ -30,6 +30,7 @@ void gui::decrypt()
     pw_check *check = new pw_check();
     connect(check, SIGNAL(pw_entered(QString)), this, SLOT(password_check(QString)));
     connect(check, SIGNAL(force_close()), this, SLOT(shutdown()));
+    check->setWindowFlag(Qt::WindowStaysOnTopHint);
     check->show();
     QTimer::singleShot(500,check, SLOT(raise())); // qtimers to delay code execution and ensure proper loading (pw window over main window)
     QTimer::singleShot(700,check, SLOT(focus_to_edit()));
