@@ -1,15 +1,15 @@
 #!/bin/bash
 version="0.1.3"
 dbFile=`dirname "$0"`/pass
+sep='<trelemorele>' #set a delimiter
 
 function addEntry {
-    echo "$2<trelemorele>$3<trelemorele>$4<trelemorele>$5<trelemorele>$6<trelemorele>$7" >> $dbFile
+    echo "$2$sep$3$sep$4$sep$5$sep$6$sep$7" >> $dbFile  #to verify
 }
 
 function deleteUser {
     readarray hasela < $dbFile #loads password file to array
     for i in "${hasela[@]}";do
-        sep='<trelemorele>' #set a delimiter
         readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
         category=${maszyna[0]}  #category
         uuid=${maszyna[1]}      #uuid
@@ -54,7 +54,6 @@ function showCategories {
 function changePass {
     readarray hasela < $dbFile #loads password file to array
     for i in "${hasela[@]}";do
-        sep='<trelemorele>' #set a delimiter
         readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
         category=${maszyna[0]}  #category
         uuid=${maszyna[1]}      #uuid
@@ -83,9 +82,7 @@ function showEntries {
     
     for i in "${hasela[@]}";do
     #echo $i
-    sep='<trelemorele>' #set a delimiter
     readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
-
     category=${maszyna[0]}  #category
     echo $category | grep $2 > /dev/null && echo $i
 done
