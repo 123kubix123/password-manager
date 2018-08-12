@@ -43,7 +43,6 @@ function showCategories {
     ARRAY=()
     readarray hasela < $dbFile #loads password file to array
         for i in "${hasela[@]}";do
-            sep='<trelemorele>' #set a delimiter
             readarray maszyna <<< $(printf '%s\n' "${i//$sep/$'\n'}")  #create array for a single entry
             ARRAY+=("${maszyna[0]}");
         done
