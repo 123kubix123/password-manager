@@ -100,24 +100,24 @@ done
 }
 
 function setVars {
-    shift
+    shift;
     echo > `dirname "$0"`/vars;
     if [[ $# != 0 ]];then
         echo "$1 = $2" >> `dirname "$0"`/vars;
-        shift shift;
+        shift; shift;
 fi
 }
 
 function usage {
-echo 'Script for changing users passwords on remote systems. Needs to be provided with system specifications, ie. root password, IP and port.'
-echo './pass.sh <passdb_secret> <action> <arguments>'
-echo './pass.sh <passdb_secret> <se|cp|du|ae> <arguments>'
-echo './pass.sh novell se linux : prints entries with category linux'
-echo './pass.sh novell cp UEFE-FED2 adam secret : changes adam password to secret on machine with UUID UEFE-FED2'
-echo './pass.sh novell ae linux UEFE-FED2 www-srv 192.168.0.4 2222 secret : adds entry for machine www-srv with UUID UEFE-FED2, IP ADDR 192.168.0.4, port 2222, password secret'
-echo './pass.sh novell sc : prints categories'
-echo './pass.sh novell du UUFF-DDSD adam : deletes user adam from machine with UUID UUFF-DDSD'
-echo './pass.sh novell vp : verifies password for database'
+    echo 'Script for changing users passwords on remote systems. Needs to be provided with system specifications, ie. root password, IP and port.'
+    echo './pass.sh <passdb_secret> <action> <arguments>'
+    echo './pass.sh <passdb_secret> <se|cp|du|ae> <arguments>'
+    echo './pass.sh novell se linux : prints entries with category linux'
+    echo './pass.sh novell cp UEFE-FED2 adam secret : changes adam password to secret on machine with UUID UEFE-FED2'
+    echo './pass.sh novell ae linux UEFE-FED2 www-srv 192.168.0.4 2222 secret : adds entry for machine www-srv with UUID UEFE-FED2, IP ADDR 192.168.0.4, port 2222, password secret'
+    echo './pass.sh novell sc : prints categories'
+    echo './pass.sh novell du UUFF-DDSD adam : deletes user adam from machine with UUID UUFF-DDSD'
+    echo './pass.sh novell vp : verifies password for database'
 }
 
 if [[ $1 == "-h" || $1 == "--help" ]];then
