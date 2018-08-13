@@ -21,9 +21,15 @@ function deleteUser {
         if [[ "$uuid" == *$2* ]];then   #match UUID
             case $category in
                 *"linux"*)
-                    echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
-                    #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
-                    echo "Deleted user $3"
+                    if [[ "$password" == "pubkey" ]];then
+                        echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
+                        #echo "ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` userdel $3"
+                        echo "Deleted user $3"   
+                    else
+                        echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
+                        #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` userdel $3"
+                        echo "Deleted user $3"
+                    fi
                     ;;
                 *) : ;; 
             esac
@@ -130,5 +136,5 @@ case $2 in
     "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
     "de") if [ "$#" -eq 3 ];then deleteEntry $1 $3;fi                 ;;  #secret UUID
     "sv") setVars $@    ;;var val var val...
-  *) usage
+  *) usage ;;
 esac
