@@ -2,6 +2,7 @@
 version="0.1.3"
 dbFile=`dirname "$0"`/pass
 sep='<trelemorele>' #set a delimiter
+source `dirname "$0"`/vars;
 
 function addEntry {
     echo "$2$sep$3$sep$4$sep$5$sep$6$sep$7" >> $dbFile  #to verify
@@ -49,7 +50,6 @@ function showCategories {
     echo "${ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' '\n' | awk 'NF'
 }
 
-
 function changePass {
     readarray hasela < $dbFile #loads password file to array
     for i in "${hasela[@]}";do
@@ -93,6 +93,15 @@ function showEntries {
 done
 }
 
+function setVars {
+    shift
+    echo > `dirname "$0"`/vars;
+    if [[ $# != 0 ]];then
+        echo "$1 = $2" >> `dirname "$0"`/vars;
+        shift shift;
+fi
+}
+
 function usage {
 echo 'Script for changing users passwords on remote systems. Needs to be provided with system specifications, ie. root password, IP and port.'
 echo './pass.sh <passdb_secret> <action> <arguments>'
@@ -120,5 +129,6 @@ case $2 in
     "ae") if [ "$#" -eq 8 ];then addEntry   $1 $3 $4 $5 $6 $7 $8;fi   ;;  #secret category uuid name ip port secret
     "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
     "de") if [ "$#" -eq 3 ];then deleteEntry $1 $3;fi                 ;;  #secret UUID
+    "sv") setVars $@    ;;var val var val...
   *) usage
 esac
