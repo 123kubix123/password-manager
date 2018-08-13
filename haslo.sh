@@ -63,9 +63,15 @@ function changePass {
         if [[ "$uuid" == *$2* ]];then   #match UUID
             case $category in
                 *"linux"*)
-                    echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
-                    #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
-                    echo "Changed pass for user $3"
+                    if [[ "$password" == "pubkey" ]];then
+                        echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
+                        #echo "ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
+                        echo "Changed pass for user $3"   
+                    else
+                        echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
+                        #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
+                        echo "Changed pass for user $3"
+                    fi
                     ;;
                 *) : ;; 
             esac
