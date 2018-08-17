@@ -30,7 +30,7 @@ void gui::decrypt()
     pw_check *check = new pw_check();
     connect(check, SIGNAL(pw_entered(QString)), this, SLOT(password_check(QString)));
     connect(check, SIGNAL(force_close()), this, SLOT(shutdown()));
-    check->setWindowFlag(Qt::WindowStaysOnTopHint);
+    check->setWindowFlags(Qt::WindowStaysOnTopHint);
     check->show();
     //QTimer::singleShot(500,check, SLOT(raise())); // qtimers to delay code execution and ensure proper loading (pw window over main window)
     QTimer::singleShot(0,check, SLOT(focus_to_edit()));
@@ -298,7 +298,7 @@ void gui::show_add_category_window(QString name, QString command)
 {
     category_add *new_category = new category_add();
     new_category->set_data(name,command);
-    new_category->setWindowFlag(Qt::WindowStaysOnTopHint);
+    new_category->setWindowFlags(Qt::WindowStaysOnTopHint);
     connect(new_category, SIGNAL(category_saved(QString,QString)), this, SLOT(verify_category(QString,QString)));
     connect(new_category, SIGNAL(category_saved()), new_category, SLOT(close()));
     connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
