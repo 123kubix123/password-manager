@@ -2,6 +2,7 @@
 #define CATEGORY_ADD_H
 
 #include <QWidget>
+#include <QMessageBox>
 
 namespace Ui {
 class category_add;
