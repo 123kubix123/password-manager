@@ -279,7 +279,7 @@ void gui::verify_category(QString name, QString category)
     bool exists = true;
     if(exists)
     {
-        QMessageBox::warning(this, "Error", "Kategoria już istnieje");
+        QMessageBox::warning(this, "Error", "Kategoria już istnieje!");
         show_add_category_window(name,category);
     }
     else

@@ -26,4 +26,8 @@ void category_add::on_save_clicked()
         emit category_saved(ui->name->text(), ui->command->toPlainText());
         emit category_saved();
     }
+    else
+    {
+        QMessageBox::warning(this, "Error", "Wypełnij wszystkie pola!");
+    }
 }

@@ -27,13 +27,16 @@
    <item>
     <widget class="QLabel" name="desc_command">
      <property name="text">
-      <string>Podaj polecenie służące do zmiany hasła dla danej kategorii.
-Możesz używać następujących tagów 
-[{IP_ADDR}] - miejsce gdzie wpisany będzie adres ip hosta
-[{PORT}] - miejsce gdzie wpisany będzie port usługi
-[{USER}] - miejsce gdzie wpisany będzie użytkownik do logowania
-[{PASSWORD}] - miejsce gdzie wpisane będzie hasło używane do logowania
-[{NEW_PASSWORD}] - miejsce gdzie wpisane będzie nowe hasło</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Podaj polecenie służące do zmiany hasła dla danej kategorii.&lt;/p&gt;
+&lt;p&gt;Możesz używać następujących tagów &lt;/p&gt;
+&lt;p&gt;[{IP_ADDR}] - adres ip hosta&lt;/p&gt;
+&lt;p&gt;[{PORT}] - port usługi&lt;/p&gt;
+&lt;p&gt;[{USER}] - użytkownik uprawniony do zmiany hasła&lt;/p&gt;
+&lt;p&gt;[{PASSWORD}] - hasło używane do logowania&lt;/p&gt;
+&lt;p&gt;[{TARGET_USER}] - użytkownik którego hasło ma zostać zmienione&lt;/p&gt;
+&lt;p&gt;[{NEW_PASSWORD}] - nowe hasło&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textInteractionFlags">
       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
