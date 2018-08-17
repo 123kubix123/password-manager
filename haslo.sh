@@ -2,7 +2,9 @@
 version="0.1.3"
 dbFile=`dirname "$0"`/pass
 sep='<trelemorele>' #set a delimiter
-source `dirname "$0"`/vars;
+if [[ -f `dirname "$0"`/vars ]];then
+    source `dirname "$0"`/vars;
+fi
 
 function addEntry {
     echo "$2$sep$3$sep$4$sep$5$sep$6$sep$7" >> $dbFile  #to verify
@@ -135,6 +137,6 @@ case $2 in
     "ae") if [ "$#" -eq 8 ];then addEntry   $1 $3 $4 $5 $6 $7 $8;fi   ;;  #secret category uuid name ip port secret
     "vp") if [ "$#" -eq 2 ];then verifyPassword $1;fi                 ;;  #verify password for database
     "de") if [ "$#" -eq 3 ];then deleteEntry $1 $3;fi                 ;;  #secret UUID
-    "sv") setVars $@    ;;var val var val...
+    "sv") setVars $@    ;;  #var val var val...
   *) usage ;;
 esac
