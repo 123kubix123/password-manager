@@ -77,7 +77,8 @@ function changePass {
                         echo "Changed pass for user $3"   
                     else
                         echo "Machine `echo $name | sed ':a;N;$!ba;s/\n/ /g'` is being processed"
-                        #echo "sshpass -p`echo $password | sed ':a;N;$!ba;s/\n/ /g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n/ /g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` chpasswd $3:$4"
+                        cmd="echo $3:$4 | /usr/sbin/chpasswd" 
+                        sshpass -p`echo $password | sed ':a;N;$!ba;s/\n//g'` ssh -p `echo $port | sed ':a;N;$!ba;s/\n//g'` root@`echo $ip | sed ':a;N;$!ba;s/\n/ /g'` $cmd
                         echo "Changed pass for user $3"
                     fi
                     ;;
