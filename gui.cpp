@@ -1,6 +1,7 @@
 #include "gui.h"
 #include "ui_gui.h"
 #include "pw_check.h"
+#include <QDebug>
 
 gui::gui(QWidget *parent) :
     QMainWindow(parent),
@@ -19,14 +20,14 @@ gui::~gui()
 void gui::initialize()
 {
     this->setEnabled(false); // disable ui until password verification succeded
-
+    //on_actionFullscreen_triggered();
     //this->setWindowFlag(Qt::WindowStaysOnTopHint);
     //on_actionFullscreen_triggered();
     decrypt(); // access encrypted file
 }
 
 void gui::decrypt()
-{
+{/*
     pw_check *check = new pw_check();
     connect(check, SIGNAL(pw_entered(QString)), this, SLOT(password_check(QString)));
     connect(check, SIGNAL(force_close()), this, SLOT(shutdown()));
@@ -34,6 +35,17 @@ void gui::decrypt()
     check->show();
     //QTimer::singleShot(500,check, SLOT(raise())); // qtimers to delay code execution and ensure proper loading (pw window over main window)
     QTimer::singleShot(0,check, SLOT(focus_to_edit()));
+    */
+    bool ok = false;
+    QString text = QInputDialog::getText(this, "Weryfikacja hasła", "Podaj hasło:", QLineEdit::Password, "", &ok);
+    if(ok && !text.isEmpty())
+    {
+        password_check(text);
+    }
+    else
+    {
+        QTimer::singleShot(0,this, &gui::on_actionWyloguj_triggered);
+    }
 }
 
 void gui::password_check(QString pw)
@@ -165,6 +177,7 @@ void gui::on_actionWyloguj_triggered()
     //poweroff.startDetached("/bin/bash", QStringList()<< "-c" << "kill -9 -1;\n");
     emit closing();
     this->close();
+   // QApplication::exit(0);
 }
 
 void gui::on_show_pw_clicked()
