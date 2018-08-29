@@ -38,8 +38,9 @@ void gui::decrypt()
     */
     QInputDialog *inp = new QInputDialog(this);
     inp->setLabelText("Weryfikacja hasła");
-    inp->setWindowTitle("Podaj hasło:");
+    inp->setWindowTitle("Hasło");
     inp->setTextEchoMode(QLineEdit::Password);
+    inp->setWindowFlags(Qt::Dialog|Qt::WindowTitleHint|Qt::WindowSystemMenuHint|Qt::WindowCloseButtonHint);
     inp->adjustSize();
     inp->move(QApplication::desktop()->screen()->rect().center() - inp->rect().center());
     if(inp->exec() == QDialog::Accepted && !inp->textValue().isEmpty())
@@ -55,7 +56,8 @@ void gui::decrypt()
 void gui::password_check(QString pw)
 {
     // use script to verify pw
-    QString result = execute_command("../../haslo.sh novell vp");
+    pw = "novell";
+    QString result = execute_command("../../haslo.sh " + pw + " vp");
     if(result == "OK")
     {
         this->setEnabled(true); // activate ui
