@@ -1,9 +1,16 @@
 #!/bin/bash
-version="0.1.3"
+version="0.1.7"
 dbFile=`dirname "$0"`/pass
 sep='<trelemorele>' #set a delimiter
+
 if [[ -f `dirname "$0"`/vars ]];then
     source `dirname "$0"`/vars;
+fi
+
+if [[ $2 != "vp" && $2 != "sv" ]];then
+    if [[ ! $(command -v sshpass) && ! -z $sshpass_bin ]];then
+        echo "WARNING: no sshpass binary found. Either install sshpass package or provide variable sshpass_bin";
+    fi
 fi
 
 function addEntry {
@@ -121,6 +128,7 @@ function usage {
     echo './pass.sh novell sc : prints categories'
     echo './pass.sh novell du UUFF-DDSD adam : deletes user adam from machine with UUID UUFF-DDSD'
     echo './pass.sh novell vp : verifies password for database'
+    echo './pass.sh novell sv sshpass_bin "/usr/bin/sshpass" sep "<separator>" : sets sshpass_bin variable to /usr/bin/sshpass and sep to "<separator>"'
 }
 
 if [[ $1 == "-h" || $1 == "--help" ]];then
