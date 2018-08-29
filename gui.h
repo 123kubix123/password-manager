@@ -76,6 +76,8 @@ private slots:
 
     void show_add_category_window(QString name, QString command);
 
+    void on_actionZmie_has_o_g_wne_triggered();
+
 private:
     Ui::gui *ui;
     bool close_requested = false;

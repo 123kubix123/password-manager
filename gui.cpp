@@ -20,7 +20,7 @@ gui::~gui()
 void gui::initialize()
 {
     this->setEnabled(false); // disable ui until password verification succeded
-    on_actionFullscreen_triggered();
+    //on_actionFullscreen_triggered();
     //this->setWindowFlag(Qt::WindowStaysOnTopHint);
     //on_actionFullscreen_triggered();
     decrypt(); // access encrypted file
@@ -51,6 +51,7 @@ void gui::decrypt()
     {
         QTimer::singleShot(0,this, &gui::on_actionWyloguj_triggered);
     }
+    inp->deleteLater();
 }
 
 void gui::password_check(QString pw)
@@ -60,6 +61,7 @@ void gui::password_check(QString pw)
     QString result = execute_command("../../haslo.sh " + pw + " vp");
     if(result == "OK")
     {
+        password = pw;
         this->setEnabled(true); // activate ui
         load_categories();
     }
@@ -91,7 +93,7 @@ void gui::load_categories()
     bool loaded = false;
     ui->categories->clear();
     // use script to load categories
-    QString categories = execute_command("../../haslo.sh novell sc ");
+    QString categories = execute_command("../../haslo.sh " + password + " sc ");
     QStringList categories_splitted = categories.split("\n");
     categories_splitted.removeDuplicates();
     for(int i =0; i < categories_splitted.count(); i++)
@@ -120,7 +122,7 @@ void gui::load_entries(QString category)
 {
     ui->entries->clear();
     // use script to load entries
-    QString entries = execute_command("../../haslo.sh novell se "+category);
+    QString entries = execute_command("../../haslo.sh " + password + " se "+category);
     QList<QString> entries_splitted = entries.split("\n");
     for(int i =0; i < entries_splitted.count(); i++)
     {
@@ -191,7 +193,7 @@ void gui::on_show_pw_clicked()
     // use script to decrypt pw
     if(ui->entries->currentItem() != NULL)
     {
-        QString entries = execute_command("../../haslo.sh novell se "+ui->categories->currentText());
+        QString entries = execute_command("../../haslo.sh " + password + " se "+ui->categories->currentText());
         QList<QString> entries_splitted = entries.split("\n");
         for(int i =0; i < entries_splitted.count(); i++)
         {
@@ -229,7 +231,7 @@ void gui::on_change_pw_clicked()
                                                  "Password", &pw_ok);
             if (pw_ok && !new_pw.isEmpty())
             {
-                QString result = execute_command("../../haslo.sh novell cp "+ui->entries->currentItem()->data(3).toString()+" "+username+" "+new_pw);
+                QString result = execute_command("../../haslo.sh " + password + " cp "+ui->entries->currentItem()->data(3).toString()+" "+username+" "+new_pw);
                 update_log(result);
             }
             else
@@ -253,7 +255,7 @@ void gui::on_entry_delete_clicked()
     // use script to delete entry
     if(ui->entries->currentItem() != NULL)
     {
-        QString result = execute_command("../../haslo.sh novell de "+ui->entries->currentItem()->data(3).toString());
+        QString result = execute_command("../../haslo.sh " + password + " de "+ui->entries->currentItem()->data(3).toString());
         if(result == "OK")
         {
            QMessageBox::information(this, "Usunięto", "Usunięto wpis.");
@@ -275,7 +277,7 @@ void gui::on_category_delete_clicked()
     // use script to delete category
     if(ui->categories->currentText() != "")
     {
-        QString result = execute_command("../../haslo.sh novell dc "+ui->categories->currentText());
+        QString result = execute_command("../../haslo.sh " + password + " dc "+ui->categories->currentText());
         if(result == "OK")
         {
            QMessageBox::information(this, "Usunięto", "Usunięto kategorię.");
@@ -295,12 +297,12 @@ void gui::on_category_delete_clicked()
 void gui::verify_category(QString name, QString category)
 {
     // use script to verify category
-    QString result = execute_command("../../haslo.sh novell vc "+name);
+    QString result = execute_command("../../haslo.sh " + password + " vc "+name);
     qDebug()<<result;
     if(result == "OK")
     {
         // use script to add category
-        QString result = execute_command("../../haslo.sh novell ac "+name + " " + category);
+        QString result = execute_command("../../haslo.sh " + password + " ac "+name + " " + category);
         if(result != "OK")
         {
             QMessageBox::warning(this, "Error", "Coś poszło nie tak!!!\n"+result);
@@ -321,16 +323,14 @@ void gui::on_actionDodaj_Kategori_triggered()
 
 void gui::show_add_category_window(QString name, QString command)
 {
-    qDebug()<<"kupa";
     category_add *new_category = new category_add();
     new_category->set_data(name,command);
     new_category->setWindowFlags(Qt::WindowStaysOnTopHint);
     connect(new_category, SIGNAL(category_saved(QString,QString)), this, SLOT(verify_category(QString,QString)));
     connect(new_category, SIGNAL(category_saved()), new_category, SLOT(close()));
-    //connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
+    connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));  // may cause problems on non supported qt version eg. 5.9.4
     connect(this, SIGNAL(closing()), new_category, SLOT(close()));
     new_category->show();
-    qDebug()<<"dupa";
 }
 
 void gui::update_log(QString text)
@@ -339,4 +339,32 @@ void gui::update_log(QString text)
     ui->log->append(text);
     QScrollBar *down = ui->log->verticalScrollBar();
     down->setValue(down->maximum());
+}
+
+void gui::on_actionZmie_has_o_g_wne_triggered()
+{
+    QInputDialog *inp = new QInputDialog(this);
+    inp->setLabelText("Nowe Hasło:");
+    inp->setWindowTitle("Hasło");
+    inp->setTextEchoMode(QLineEdit::Password);
+    inp->setWindowFlags(Qt::Dialog|Qt::WindowTitleHint|Qt::WindowSystemMenuHint|Qt::WindowCloseButtonHint);
+    inp->adjustSize();
+    inp->move(QApplication::desktop()->screen()->rect().center() - inp->rect().center());
+    if(inp->exec() == QDialog::Accepted && !inp->textValue().isEmpty())
+    {
+        QString result = execute_command("../../haslo.sh " + password + " cmp "+inp->textValue());
+        if(result == "OK")
+        {
+            password = inp->textValue();
+        }
+        else
+        {
+            QMessageBox::warning(this, "Error", "Hasło nie zostało zmienione!");
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, "Error", "Hasło nie zostało zmienione!");
+    }
+    inp->deleteLater();
 }
