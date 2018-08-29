@@ -296,6 +296,7 @@ void gui::verify_category(QString name, QString category)
 {
     // use script to verify category
     QString result = execute_command("../../haslo.sh novell vc "+name);
+    qDebug()<<result;
     if(result == "OK")
     {
         // use script to add category
@@ -320,6 +321,7 @@ void gui::on_actionDodaj_Kategori_triggered()
 
 void gui::show_add_category_window(QString name, QString command)
 {
+    qDebug()<<"kupa";
     category_add *new_category = new category_add();
     new_category->set_data(name,command);
     new_category->setWindowFlags(Qt::WindowStaysOnTopHint);
@@ -328,6 +330,7 @@ void gui::show_add_category_window(QString name, QString command)
     connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
     connect(this, SIGNAL(closing()), new_category, SLOT(close()));
     new_category->show();
+    qDebug()<<"dupa";
 }
 
 void gui::update_log(QString text)
