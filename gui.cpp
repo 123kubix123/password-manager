@@ -276,16 +276,21 @@ void gui::on_category_delete_clicked()
 void gui::verify_category(QString name, QString category)
 {
     // use script to verify category
-    bool exists = true;
-    if(exists)
+    QString result = execute_command("../../haslo.sh novell vc "+name);
+    if(result == "OK")
     {
-        QMessageBox::warning(this, "Error", "Kategoria już istnieje!");
-        show_add_category_window(name,category);
+        // use script to add category
+        QString result = execute_command("../../haslo.sh novell ac "+name + " " + category);
+        if(result != "OK")
+        {
+            QMessageBox::warning(this, "Error", "Coś poszło nie tak!!!\n"+result);
+        }
+        load_categories();
     }
     else
     {
-        // use script to save category
-        load_categories();
+        QMessageBox::warning(this, "Error", "Kategoria już istnieje!");
+        show_add_category_window(name,category);
     }
 }
 
