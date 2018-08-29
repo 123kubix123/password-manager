@@ -327,7 +327,7 @@ void gui::show_add_category_window(QString name, QString command)
     new_category->setWindowFlags(Qt::WindowStaysOnTopHint);
     connect(new_category, SIGNAL(category_saved(QString,QString)), this, SLOT(verify_category(QString,QString)));
     connect(new_category, SIGNAL(category_saved()), new_category, SLOT(close()));
-    connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
+    //connect(new_category, SIGNAL(category_saved()), new_category, SLOT(deleteLater()));
     connect(this, SIGNAL(closing()), new_category, SLOT(close()));
     new_category->show();
     qDebug()<<"dupa";
