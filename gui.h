@@ -78,6 +78,8 @@ private slots:
 
     void on_actionZmie_has_o_g_wne_triggered();
 
+    void on_actionDodaj_komputer_triggered();
+
 private:
     Ui::gui *ui;
     bool close_requested = false;

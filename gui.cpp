@@ -368,3 +368,8 @@ void gui::on_actionZmie_has_o_g_wne_triggered()
     }
     inp->deleteLater();
 }
+
+void gui::on_actionDodaj_komputer_triggered()
+{
+ // not implemented yet
+}
