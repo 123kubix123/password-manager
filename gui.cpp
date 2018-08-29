@@ -20,7 +20,7 @@ gui::~gui()
 void gui::initialize()
 {
     this->setEnabled(false); // disable ui until password verification succeded
-    //on_actionFullscreen_triggered();
+    on_actionFullscreen_triggered();
     //this->setWindowFlag(Qt::WindowStaysOnTopHint);
     //on_actionFullscreen_triggered();
     decrypt(); // access encrypted file
