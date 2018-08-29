@@ -13,6 +13,7 @@
 #include <QInputDialog>
 #include <QDateTime>
 #include <QScrollBar>
+#include <QDesktopWidget>
 
 
 #include "pw_check.h"

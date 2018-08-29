@@ -1,7 +1,7 @@
 #include "gui.h"
 #include "ui_gui.h"
 #include "pw_check.h"
-#include <QDebug>
+
 
 gui::gui(QWidget *parent) :
     QMainWindow(parent),
@@ -36,11 +36,15 @@ void gui::decrypt()
     //QTimer::singleShot(500,check, SLOT(raise())); // qtimers to delay code execution and ensure proper loading (pw window over main window)
     QTimer::singleShot(0,check, SLOT(focus_to_edit()));
     */
-    bool ok = false;
-    QString text = QInputDialog::getText(this, "Weryfikacja hasła", "Podaj hasło:", QLineEdit::Password, "", &ok);
-    if(ok && !text.isEmpty())
+    QInputDialog *inp = new QInputDialog(this);
+    inp->setLabelText("Weryfikacja hasła");
+    inp->setWindowTitle("Podaj hasło:");
+    inp->setTextEchoMode(QLineEdit::Password);
+    inp->adjustSize();
+    inp->move(QApplication::desktop()->screen()->rect().center() - inp->rect().center());
+    if(inp->exec() == QDialog::Accepted && !inp->textValue().isEmpty())
     {
-        password_check(text);
+        password_check(inp->textValue());
     }
     else
     {
